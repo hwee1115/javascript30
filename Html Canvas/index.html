@@ -22,15 +22,14 @@
     let lastX = 0;
     let lastY =0;
     let hue = 0;
-    let direction = true;
-    
+   
     function draw(e){
         if(!isDrawing) return;
         ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-        ctx.beginPath();
-        ctx.moveTo(lastX,lastY);
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
+        ctx.beginPath(); //path 시작
+        ctx.moveTo(lastX,lastY); //처음 선을 그리기 위한 x,,y값 lastX와 lastY값은 mousedown시  처음 offsetX,offsetY값
+        ctx.lineTo(e.offsetX, e.offsetY); //moveTo 함수에서 지정된 값부터 현재위치에서 주어진 offsetX,offsetY까지 연결하는 선을 그리기 위한 함수
+        ctx.stroke(); //선을 이어그림
         lastX = e.offsetX
         lastY = e.offsetY
 
