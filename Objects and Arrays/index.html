@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+    <script>
+        //문자열, 숫자, 불리언은 copy
+        let name ="hwee";
+        let name2= name;
+        console.log(name, name2);
+        name = "hwee1115";
+        console.log(name, name2);
+
+        //배열은 reference
+        const players = ['hwee', 'sarah,' ,'ryan', 'poppy']
+
+        const team = players
+        console.log(players,team);
+
+        players[3] = 'dog';
+        team[2] = 'ban';
+
+        //team배열에서의 변화가 players 배열에 영향을 줌
+        console.log(players,team);
+
+        //배열을 reference 하지 않기 위한 방법
+
+        //slice() 원본 배열을 바꾸지 않고 복사본을 새로운 배열 객체로 반환
+        const team2 = players.slice();
+        //concat() 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열을 반환
+        const team3  = [].concat(players);
+        
+        const team4 = [...players];
+        const team5 = Array.from(players);
+        team2[2]= 'lee'
+        team3[4]= 'son'
+        team4[1]= 'kim'
+        team5[3]= 'min'
+        console.log(team2,team3,team4,team5,players) //players배열은 변하지 않음
+
+
+        console.clear();
+        //obj도 reference
+        const person = {
+            name: "hwee1115",
+            age:80
+        };
+
+        const captain = person;
+        captain.age = 99;
+        console.log(person,captain) //  기존의 obj의 age도 99로 나온다.
+
+        console.clear();
+
+        //구조체 reference하지 않는 방법
+        const cap2 = Object.assign({}, person);
+        const cap3 = Object.assign({},person, {age:22});
+        const cap4 = Object.assign({},person, {
+            age:33,
+            number:55
+        });
+
+        const cap5={
+            ...person
+        };
+
+        console.log(person);
+        console.log(cap2);
+        console.log(cap3);
+        console.log(cap4);
+        console.log(cap5);
+        
+        //구조체의 copy는 1단계만 된다 obj안에 배열이나 obj는 reference된다.
+        const ex = {
+            name:"hwee",
+            email:{
+                i:"hwee1115",
+                d:"@naver.com"
+            }
+        };
+
+        const ex2 = {...ex};
+        ex2.email.i = 'lsun0000';
+        ex2.email.d ='@daum.net';
+
+        console.log(ex);  //ex2에 변경해준 값이 참조된걸 볼 수 있다.
+        console.log(ex2);
+
+        console.clear();
+        //문자열로 만든 후 파싱하여 구조체를 집어넣으면 기존의 obj를 참조하지 않는 obj를 만들 수 있다.
+        const dev = Object.assign({}, ex);
+        const dev2 = JSON.parse(JSON.stringify(ex));
+        dev2.email.i="hwee1119";
+        dev2.email.d="@naver.com";
+
+        console.log(dev);
+        console.log(dev2);
+    
+
+    </script>
